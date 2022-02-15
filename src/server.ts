@@ -1,12 +1,10 @@
 import 'dotenv/config';
-import express from 'express';
+import App from './app';
+import PostController from './resources/post/post.controller';
+import validEnv from './utils/validateEnv';
 
-const app = express();
+validEnv();
 
-app.use('/', (req, res) => {
-  res.json('hello world');
-});
+const app = new App([new PostController()], Number(process.env.PORT));
 
-const port = process.env.PORT || 5555;
-
-app.listen(port, () => console.log(`server is running on port ${port}`));
+app.listen();
